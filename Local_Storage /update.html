@@ -80,41 +80,42 @@
     <script>
         function profile() {
             window.location.href = "userdasboard.html";
-            
         }
-        let islogin= JSON.parse(localStorage.getItem("islogin"))
-        console.log(islogin)
-        let user = JSON.parse(localStorage.getItem("user")  || '[]')
-        console.log(user)
-        document.getElementById("name").value = islogin.name;
-        document.getElementById("email").value = islogin.email;
-        document.getElementById("mobile").value = islogin.mobile;
-        document.getElementById("password").value = islogin.password;
+
+        const islogin = JSON.parse(localStorage.getItem("islogin"));
+        const user = JSON.parse(localStorage.getItem("user") || '[]');
+
+        // Guard: if user is not logged in, redirect safely
+        if (!islogin || !islogin.email) {
+            alert("Please login first.");
+            window.location.href = "../index.html";
+        }
+
+        document.getElementById("name").value = islogin.name || "";
+        document.getElementById("email").value = islogin.email || "";
+        document.getElementById("mobile").value = islogin.mobile || "";
+        document.getElementById("password").value = islogin.password || "";
+
 
         document.getElementById("updateuser").addEventListener("submit",(e)=>{
         e.preventDefault();
-        let updatedata={
+        const updatedata={
             name: document.getElementById("name").value ,
             email: document.getElementById("email").value ,
             mobile: document.getElementById("mobile").value,
             password:  document.getElementById("password").value ,
         }
-       
-       user = user.map((u)=>{
-       
+
+        const updatedUser = user.map((u)=>{
             if(islogin.email===u.email){
                return updatedata;
             }
             return u;
         })
-        console.log(updatedata)
-       
+
         localStorage.setItem("islogin",JSON.stringify(updatedata))
-         localStorage.setItem("user",JSON.stringify(user))
+        localStorage.setItem("user",JSON.stringify(updatedUser))
         window.location.href = "userdasboard.html";
-        console.log(updatedata)
-       
-        
      })
     </script>
 </body>
