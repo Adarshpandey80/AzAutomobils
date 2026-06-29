@@ -67,6 +67,14 @@
             background: rgba(255,255,255,.06);
             border: 1px solid rgba(255,255,255,.15);
         }
+        /* Make backdrop feel like full-screen background */
+        .backdrop-3d .car-wrap{
+            width: min(1100px, 92vw);
+            height: min(650px, 70vh);
+        }
+        @media (max-width: 576px){
+            .backdrop-3d .car-wrap{height: 55vh;}
+        }
 
         .page{
             position:relative;
